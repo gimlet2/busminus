@@ -18,7 +18,10 @@ import webapp2
 import jinja2
 import os
 
+import dao.user_dao
+
 from google.appengine.api import users
+from dao.user_dao import User
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -30,7 +33,10 @@ class MainHandler(webapp2.RequestHandler):
         if not user:
             login = users.create_login_url(self.request.uri)
         else:
-            username = user
+            if User.find(user) is None:
+                User.create(user)
+
+            username = user.nickname()
             login = users.create_logout_url(self.request.uri)
         params = {
             'title': 'Main Page',
