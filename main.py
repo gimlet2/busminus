@@ -18,14 +18,25 @@ import webapp2
 import jinja2
 import os
 
+from google.appengine.api import users
+
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        user = users.get_current_user()
+        username = None
+        if not user:
+            login = users.create_login_url(self.request.uri)
+        else:
+            username = user
+            login = users.create_logout_url(self.request.uri)
         params = {
             'title': 'Main Page',
-            'text': 'BusMinus'
+            'text': 'BusMinus',
+            'login': login,
+            'username': username
         }
         template = jinja_environment.get_template('templates/index.html')
         self.response.out.write(template.render(params))

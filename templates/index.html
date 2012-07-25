@@ -41,6 +41,12 @@
                     <li class="active"><a href="#">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    {% if not username %}
+                    <li><a href="{{ login }}">Login</a></li>
+                    {% endif %}
+                    {% if username %}
+                    <li><a href="{{ login }}">{{ username }}</a></li>
+                    {% endif %}
                 </ul>
             </div>
             <!--/.nav-collapse -->
