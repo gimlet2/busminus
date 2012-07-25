@@ -25,7 +25,7 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         params = {
             'title': 'Main Page',
-            'text': 'Hello world'
+            'text': 'BusMinus'
         }
         template = jinja_environment.get_template('templates/index.html')
         self.response.out.write(template.render(params))
