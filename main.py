@@ -15,37 +15,9 @@
 # limitations under the License.
 #
 import webapp2
-import jinja2
-import os
 
-import dao.user_dao
+from route.main import MainHandler
+from route.profile import ProfileHandler
 
-from google.appengine.api import users
-from dao.user_dao import User
-
-jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
-
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        user = users.get_current_user()
-        username = None
-        if not user:
-            login = users.create_login_url(self.request.uri)
-        else:
-            if User.find(user) is None:
-                User.create(user)
-
-            username = user.nickname()
-            login = users.create_logout_url(self.request.uri)
-        params = {
-            'title': 'Main Page',
-            'text': 'BusMinus',
-            'login': login,
-            'username': username
-        }
-        template = jinja_environment.get_template('templates/index.html')
-        self.response.out.write(template.render(params))
-
-app = webapp2.WSGIApplication([('/', MainHandler)],
+app = webapp2.WSGIApplication([('/', MainHandler), ('/profile', ProfileHandler)],
     debug=True)

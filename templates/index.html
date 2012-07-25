@@ -54,10 +54,10 @@
     </div>
 </div>
 <div class="container">
-
+    {% block content %}
     <!-- Main hero unit for a primary marketing message or call to action -->
     <div class="hero-unit">
-        <h1>{{ text }}</h1>
+        <h1>BusMinus</h1>
 
         <p>This service is designed for those who are against the system BusPlus, who do not share the idea of public
             transportation: cards BusPlus and innovations "Entrance-Exit" into the certain doors, we are for the
@@ -71,6 +71,11 @@
 
         <p><a class="btn btn-primary btn-large">Launch soon &raquo;</a></p>
     </div>
+    {% endblock %}
+    <footer>
+        <p>&copy; BusMinus Team – 2012</p>
+    </footer>
+
 
 </div>
 
