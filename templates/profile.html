@@ -1,7 +1,38 @@
 {% extends "templates/index.html" %}
+{% block title %}Profile{% endblock %}
 {% block content %}
-<h1>Profile</h1>
-<p>
-    Fill your profile.
-</p>
+
+
+<form class="well form-horizontal" action="/profile" method="post">
+    <label><h3>Your profile</h3></label>
+
+    <div class="control-group">
+        <label class="control-label" for="display_name">Your name:</label>
+
+        <div class="controls">
+            <input name="display_name" id="display_name" type="text" class="span3"
+                   value="{{ nick|e }}"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="car_number">Car number:</label>
+
+        <div class="controls">
+            <input name="car_number" id="car_number" type="text" class="span3" value="{{ car_number|e }}"/>
+        </div>
+    </div>
+    <button type="submit" class="btn">Save</button>
+</form>
+<form class="well form-horizontal" action="{{ upload_url }}" method="post" enctype="multipart/form-data">
+    <div class="control-group">
+        <label class="control-label" for="car_photo">Car photo:</label>
+
+        <div class="controls">
+            <input name="car_photo" id="car_photo" type="file" class="span3"/>
+        </div>
+    </div>
+    <button type="submit" class="btn">Upload</button>
+</form>
+<img src="{{ car_url }}" alt="car"/>
+
 {% endblock %}

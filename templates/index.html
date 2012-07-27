@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>BusMinus – {{ title }}</title>
+    <title>BusMinus – {% block title %}Main Page{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -22,7 +22,6 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <!-- Le fav and touch icons -->
 
 </head>
 <body>
@@ -34,17 +33,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">Busminus</a>
+            <a class="brand" href="/">Busminus</a>
 
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li class="active"><a href="/">Home</a></li>
                     <li><a href="#contact">Contact</a></li>
                     {% if not username %}
                     <li><a href="{{ login }}">Login</a></li>
                     {% endif %}
                     {% if username %}
+                    <li><a href="/profile">Profile</a></li>
                     <li><a href="{{ login }}">Logout: {{ username }}</a></li>
                     {% endif %}
                 </ul>

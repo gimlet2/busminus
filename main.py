@@ -18,6 +18,8 @@ import webapp2
 
 from route.main import MainHandler
 from route.profile import ProfileHandler
+from route.profile import UploadHandler
+from route.profile import ServeHandler
 
-app = webapp2.WSGIApplication([('/', MainHandler), ('/profile', ProfileHandler)],
+app = webapp2.WSGIApplication([('/', MainHandler), ('/profile', ProfileHandler), ('/upload', UploadHandler),('/serve/([^/]+)?', ServeHandler)],
     debug=True)
