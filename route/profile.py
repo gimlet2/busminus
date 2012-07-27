@@ -15,20 +15,25 @@ from render import Render
 class ProfileHandler(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
-        user_db = User.find(user)
-        blob_key = user_db.car_photo_blob_id
-        if blob_key is not None:
-            car_url = '/serve/%s' % blob_key.key()
+        if user:
+            user_db = User.find(user)
+            blob_key = user_db.car_photo_blob_id
+            if blob_key is not None:
+                car_url = '/serve/%s' % blob_key.key()
+            else:
+                car_url = '/img/car.jpg'
+            params = {
+                'title': 'Main Page',
+                'upload_url': blobstore.create_upload_url('/upload'),
+                'nick': user_db.nick,
+                'car_number': user_db.car_number,
+                'car_url': car_url,
+                'login': users.create_logout_url(self.request.uri),
+                'username': user.nickname()
+            }
+            self.response.out.write(Render.render('profile.html', params))
         else:
-            car_url = '/img/car.jpg'
-        params = {
-            'title': 'Main Page',
-            'upload_url': blobstore.create_upload_url('/upload'),
-            'nick': user_db.nick,
-            'car_number': user_db.car_number,
-            'car_url': car_url
-        }
-        self.response.out.write(Render.render('profile.html', params))
+            self.redirect('/')
 
     def post(self):
         user = users.get_current_user()

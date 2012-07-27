@@ -1,5 +1,6 @@
 from google.appengine.api import users
 from google.appengine.ext.blobstore import blobstore
+from google.appengine.ext.db import UserProperty
 
 __author__ = 'gimlet'
 
@@ -7,7 +8,7 @@ from google.appengine.ext import db
 
 class User(db.Model):
     name = db.StringProperty()
-    user = users.User()
+    user = UserProperty()
     nick = db.StringProperty()
     car_number = db.StringProperty()
     car_photo_blob_id = blobstore.BlobReferenceProperty()
