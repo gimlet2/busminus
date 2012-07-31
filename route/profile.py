@@ -48,6 +48,7 @@ class ProfileHandler(webapp2.RequestHandler):
 class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         upload_files = self.get_uploads('car_photo')
+        logging.info(upload_files.__len__())
         blob_info = upload_files[0]
         user = users.get_current_user()
         user_db = User.find(user)
